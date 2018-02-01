@@ -79,26 +79,23 @@ public class Auction
      */
     public Lot getLot(int lotNumber)
     {
-        if((lotNumber >= 1) && (lotNumber < nextLotNumber)) {
-            // The number seems to be reasonable.
-            Lot selectedLot = lots.get(lotNumber - 1);
-            // Include a confidence check to be sure we have the
-            // right lot.
-            if(selectedLot.getNumber() != lotNumber) {
-                System.out.println("Internal error: Lot number " +
-                    selectedLot.getNumber() +
-                    " was returned instead of " +
-                    lotNumber);
-                // Don't return an invalid lot.
-                selectedLot = null;
+        Lot lote = null;
+        boolean encontrado = false;
+        int x = 0;  //Contador del bucle
+        
+        while(!encontrado && x < lots.size()){
+            if(lots.get(x).getNumber() == lotNumber){
+                lote = lots.get(x);
+                encontrado = true;
             }
-            return selectedLot;
+            x++;
         }
-        else {
-            System.out.println("Lot number: " + lotNumber +
-                " does not exist.");
-            return null;
+        
+        if(!encontrado) {
+            System.out.println("El lote: " + lotNumber + " no existe.");
         }
+        
+        return lote;
     }
 
     public void close(){
